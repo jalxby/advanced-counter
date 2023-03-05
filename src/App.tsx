@@ -27,21 +27,20 @@ export function App() {
 
     const getSettings = (startValue: number, maxValue: number) => {
         setChangeValueSettings({startValue, maxValue})
-        setError('enter values and press "set"')
-
+        if (startValue < 0 || maxValue < 0) {
+            setError('values can\'t be negative!')
+        }else if (startValue === maxValue) {
+            setError('values can\'t be equal!')
+        } else if (startValue > maxValue) {
+            setError('startValue can\'t be more than maxValue')
+        } else {
+            setError('enter values and press "set"')
+        }
     }
 
     const setSettingsCallback = () => {
-        if (changeValueSettings.startValue < 0 || changeValueSettings.maxValue < 0) {
-            setError('values can\'t be negative!')
-        } else if (changeValueSettings.startValue === changeValueSettings.maxValue) {
-            setError('values can\'t be equal!')
-        } else if (changeValueSettings.startValue > changeValueSettings.maxValue) {
-            setError('startValue can\'t be more than maxValue')
-        } else {
             setSettings(changeValueSettings)
             setError('')
-        }
     }
 
     return (
@@ -51,7 +50,7 @@ export function App() {
                     getSettings={getSettings}
                     changeValueSettings={changeValueSettings}
                 />
-                    <Button title={'set'} callback={setSettingsCallback} disabled={!error}/>
+                    <Button title={'set'} callback={setSettingsCallback} disabled={error!=='enter values and press "set"'}/>
             </Stand>
                 <Stand>
                     <Counter count={error ? error : count} error={isDisabledInc}/>
