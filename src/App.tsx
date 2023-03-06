@@ -11,16 +11,14 @@ export function App() {
         startValue: 0,
         maxValue: 5
     }
-    const [settings, setSettings] = useLocalStorage(init)
+    const {settings, setSettings} = useLocalStorage(init)
     const [count, setCount] = useState(settings.startValue)
     const [changeValueSettings, setChangeValueSettings] = useState(settings)
     const [error, setError] = useState<string>('')
-    useEffect(() => setCount(settings.startValue), [settings])
 
     const increment = () => {
         count !== settings.maxValue && setCount(count + 1)
     }
-
     const reset = () => setCount(settings.startValue)
     const isDisabledInc = count === settings.maxValue
     const isDisabledReset = count === settings.startValue
@@ -42,6 +40,8 @@ export function App() {
             setSettings(changeValueSettings)
             setError('')
     }
+
+    useEffect(() => setCount(settings.startValue), [settings])
 
     return (
         <span className={s.wrapper}>

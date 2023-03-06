@@ -7,10 +7,12 @@ type DesktopType = {
 }
 
 export const Counter: FC<DesktopType> = ({count, error}) => {
+    const errorClassname = error ? s.overCount : s.counter
+    const stringErrorClassname = typeof count === 'string' ? (s.string + ' ' + s.overCount) : s.counter
     return (
 
         <span
-            className={`${typeof count === 'string' ? (s.string + ' ' + s.overCount) : ''} ${error ? s.overCount : s.counter}`}>{count}</span>
+            className={`${stringErrorClassname} ${errorClassname}`}>{count}</span>
 
     );
 };

@@ -13,12 +13,12 @@ function getValue(key: string, initSettings: StorageType) {
     return initSettings
 }
 
-export const useLocalStorage = (initSettings: StorageType): [StorageType, Dispatch<StorageType>] => {
+export const useLocalStorage = (initSettings: StorageType):any=> {
     const [value, setValue] = useState<StorageType>(getValue('settings', initSettings))
     useEffect(() => {
         localStorage.setItem('settings', JSON.stringify(value))
     }, [value])
-    return [value, setValue]
+    return {value,setValue}
 }
 
 // import {useEffect, useState} from "react";
